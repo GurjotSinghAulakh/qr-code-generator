@@ -25,7 +25,7 @@ export function Scanner({ onLoad }: { onLoad: (draft: ContentDraft) => void }) {
     try {
       await checkedImage(file, 'scan');
       const decoded = await decodeInWorker(await pixelsFromImage(file, controller.signal), controller.signal, true);
-      if (!decoded) throw new UserError('No QR code was found. Use a sharp image with one complete code and its clear margin.');
+      if (!decoded) throw new UserError('No single QR code could be read. Crop to one sharp, complete code with its clear margin and try again.');
       let text: string;
       try { text = new TextDecoder('utf-8', { fatal: true }).decode(new Uint8Array(decoded.bytes)); }
       catch { throw new UserError('This code uses binary data or an unsupported text encoding. This beta supports UTF-8 text QR codes.'); }

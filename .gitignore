@@ -152,3 +152,6 @@ vite.config.ts.timestamp-*
 test-results/
 playwright-report/
 .DS_Store
+
+# Generated at build time from installed production dependency licenses
+/public/third-party-notices.txt

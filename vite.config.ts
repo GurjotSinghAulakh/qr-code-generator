@@ -4,5 +4,14 @@ import { defineConfig } from 'vitest/config';
 export default defineConfig({
   plugins: [react()],
   build: { target: 'es2022' },
+  preview: {
+    headers: {
+      'Content-Security-Policy': "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' blob: data:; worker-src 'self' blob:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'",
+      'X-Content-Type-Options': 'nosniff',
+      'Referrer-Policy': 'no-referrer',
+      'Permissions-Policy': 'camera=(), microphone=(), geolocation=()',
+      'X-Frame-Options': 'DENY',
+    },
+  },
   test: { include: ['src/**/*.test.ts'], environment: 'node' },
 });

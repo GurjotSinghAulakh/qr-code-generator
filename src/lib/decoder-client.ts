@@ -1,5 +1,6 @@
 import type { DecodedQR } from './decode';
 import { UserError } from './errors';
+import DecoderWorker from './decode.worker?worker&inline';
 
 // One worker per operation keeps stale/aborted decoding from delaying the latest revision.
 export async function decodeInWorker(pixels: ImageData, signal?: AbortSignal, requireSingle = false): Promise<DecodedQR | null> {
@@ -10,7 +11,8 @@ export async function decodeInWorker(pixels: ImageData, signal?: AbortSignal, re
     return decodePixels(pixels.data, pixels.width, pixels.height, requireSingle);
   }
   return new Promise((resolve, reject) => {
-    const worker = new Worker(new URL('./decode.worker.ts', import.meta.url), { type: 'module' });
+    // Bundle the worker into a local blob so new operations do not need a network fetch.
+    const worker = new DecoderWorker();
     const timer = setTimeout(() => finish(undefined, new UserError('Scanning took too long. Use a smaller or cropped image.')), 20_000);
     const abort = () => finish(undefined, new DOMException('Cancelled', 'AbortError'));
     function finish(result?: DecodedQR | null, error?: Error) {

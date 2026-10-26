@@ -17,6 +17,8 @@ export function useGeneration(draft: ContentDraft, design: Design) {
   const status = empty ? 'empty' : !content.ok ? 'invalid' : error ? 'error' : artifacts ? 'ready' : 'checking';
 
   useEffect(() => {
+    // Release prior payload/artifact references on edits and reset, even when the next draft is empty.
+    setResult(undefined);
     if (!content.ok || empty) return;
     const controller = new AbortController();
     const timeout = setTimeout(() => {
@@ -36,7 +38,7 @@ export type Generation = ReturnType<typeof useGeneration>;
 export function useObjectURL(blob?: Blob): string | undefined {
   const [current, setCurrent] = useState<{ blob: Blob; url: string }>();
   useEffect(() => {
-    if (!blob) return;
+    if (!blob) { setCurrent(undefined); return; }
     const url = URL.createObjectURL(blob);
     setCurrent({ blob, url });
     return () => URL.revokeObjectURL(url);

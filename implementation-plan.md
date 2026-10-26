@@ -33,7 +33,7 @@ Dependency versions will be resolved from the registry and pinned in the lockfil
 | T04 | Complete | Implement safe QR rendering and independent verification | T03 |
 | T05 | Complete | Build the responsive generator workspace and verified downloads | T04 |
 | T06 | Complete | Add safe local QR-image scanning and editor handoff | T05 |
-| T07 | Planned | Add browser regression checks, privacy/security hardening, and developer documentation | T06 |
+| T07 | Complete | Add browser regression checks, privacy/security hardening, and developer documentation | T06 |
 | T08 | Planned | Complete P1 content types and campaign URL controls | T07 |
 | T09 | Planned | Add cancellable CSV bulk jobs and verified ZIP exports | T08 |
 | T10 | Planned | Add PDF export, physical sizing, and print layouts | T07 |
@@ -140,4 +140,10 @@ Statuses: Planned → In progress → Complete. Use “Implemented; manual valid
 - **T04:** Added a shared matrix/SVG layout, integer module sizing, contrast/quiet-zone checks, reserved-pattern logo placement, bounded image normalization, independent worker decoding, and PNG/SVG artifact creation. All 48 unit checks pass, including 16 cross-library round trips; type check/build pass. Actual browser artifact round trips will be exercised with the T05 workspace and T07 browser suite. Physical logo/print compatibility remains a release gate.
 - **T05:** Built the responsive editor, preserved drafts, masked credential inspection, design/logo controls, revision-bound verification, PNG/SVG downloads, and help/privacy content. Production build/type checks and six desktop/mobile Playwright cases pass; downloaded PNG bytes were independently decoded, and SVG safety was inspected. Reviewed desktop/mobile screenshots and preserved download-button focus. Interactive preview connection was unavailable, so screenshots came from the automated test browser.
 - **T06:** Added local image scanning/paste, a multiple-code check, inert decoded text, Wi-Fi disclosure controls, deliberate safe navigation, and loss-aware editor handoff. Unsupported contact/Wi-Fi profiles stay intact as plain text rather than silently dropping fields. All 53 unit tests and 14 desktop/mobile browser cases pass; type check/build pass. Camera scanning remains T13.
-- Subsequent tasks append actual implementation/check results here.
+- **T07:** Final run: **53 unit tests and 26 desktop/mobile Chromium browser cases pass**, together with strict TypeScript and production build. Added actual PNG/logo checks, rapid-input/stale-export coverage, privacy/network/storage checks, production response-header assertions, loaded-page offline generation, multi-code crop recovery, keyboard/download focus, 320px reflow, and automated AA checks for empty/ready editor, Wi-Fi/contact forms, scanner, and help. Fixed observed helper-text contrast failures and bundled workers inline so production offline generation does not fetch worker scripts. Reset/edits release obsolete payload/artifact references. Initial production JavaScript is approximately **140 KiB gzip**, below the proposed 300 KiB budget; this is a build-size observation, not a reference-device performance result. Added build-generated dependency notices, hosting rules, architecture/security docs, setup commands, and an explicit manual release checklist. `git diff --check` passes. Physical scanning, screen-reader testing, other browser engines, performance benchmarks, usability research, and actual hosting checks remain pending.
+
+### Current implementation boundary
+
+T01–T07 form the first working development increment and are committed separately. Start the app with `npm run dev`; run the full automated checks with `npm run check` and `npm run test:e2e`. Test-generated screenshots/downloads/traces and generated dependency notices remain ignored; the notices are recreated in every production build.
+
+The next implementation task is **T08**. T08–T15 remain planned; this increment does not implement bulk/PDF/projects/camera/offline reload or satisfy the PRD's external/manual public-launch gates. No code has been pushed or deployed.
