@@ -30,7 +30,7 @@ Dependency versions will be resolved from the registry and pinned in the lockfil
 | T01 | Complete | Record the PRD and this implementation plan | None |
 | T02 | Complete | Scaffold the typed frontend and repeatable checks | T01 |
 | T03 | Complete | Implement and test P0 content contracts | T02 |
-| T04 | Planned | Implement safe QR rendering and independent verification | T03 |
+| T04 | Complete | Implement safe QR rendering and independent verification | T03 |
 | T05 | Planned | Build the responsive generator workspace and verified downloads | T04 |
 | T06 | Planned | Add safe local QR-image scanning and editor handoff | T05 |
 | T07 | Planned | Add browser regression checks, privacy/security hardening, and developer documentation | T06 |
@@ -137,4 +137,5 @@ Statuses: Planned → In progress → Complete. Use “Implemented; manual valid
 - **T01:** Reviewed the empty application repository and the complete PRD; recorded phased tasks, requirement traceability, validation, and commit boundaries.
 - **T02:** Added React/TypeScript/Vite, pinned dependencies and lockfile, Vitest/Playwright configuration, local app assets, and build/type-check scripts. Production build and type checking pass. Installation audit reports zero known vulnerabilities. Selected Vitest 4 because Vitest 5 excludes the machine's Node 25 runtime.
 - **T03:** Implemented URL/text/Wi-Fi/vCard serializers, field definitions, per-type defaults, UTF-8 limits, credential validation, escaping, and byte-safe content-line folding. All 18 serializer checks pass; type check and production build pass. International phone validation is syntactic and does not contact a number-lookup service.
+- **T04:** Added a shared matrix/SVG layout, integer module sizing, contrast/quiet-zone checks, reserved-pattern logo placement, bounded image normalization, independent worker decoding, and PNG/SVG artifact creation. All 48 unit checks pass, including 16 cross-library round trips; type check/build pass. Actual browser artifact round trips will be exercised with the T05 workspace and T07 browser suite. Physical logo/print compatibility remains a release gate.
 - Subsequent tasks append actual implementation/check results here.
