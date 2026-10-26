@@ -96,18 +96,21 @@ test('requires a crop when two separate QR symbols are present', async ({ page }
   await expect(page.getByLabel('Decoded QR content')).toHaveValue('https://example.com/one');
 });
 
-test('has no automated AA accessibility violations in the shipped views', async ({ page }) => {
+test('has no automated AA accessibility violations in the shipped views', async ({ page }, testInfo) => {
   await page.goto('/');
   const check = async (state: string) => {
     const results = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa']).analyze();
     expect(results.violations.map(({ id, nodes }) => ({ id, nodes: nodes.map(({ target, failureSummary }) => ({ target, failureSummary })) })), state).toEqual([]);
   };
   await check('Empty generator');
+  await page.screenshot({ path: testInfo.outputPath('empty-generator.png'), fullPage: true });
   await page.getByLabel('Website URL').fill('https://example.com');
   await expect(page.getByText('Scan check passed')).toBeVisible();
   for (const view of ['Create a code', 'Scan an image', 'Help & privacy']) {
     await page.getByRole('button', { name: view, exact: true }).click();
+    if (view === 'Help & privacy') await page.getByText('Does my content leave this device?', { exact: true }).click();
     await check(view);
+    await page.screenshot({ path: testInfo.outputPath(`${view.replace(/[^a-z]+/gi, '-').toLowerCase()}.png`), fullPage: true });
   }
   await page.getByRole('button', { name: 'Create a code', exact: true }).click();
   for (const type of ['Wi-Fi', 'Contact']) {

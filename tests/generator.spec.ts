@@ -58,9 +58,35 @@ test('requires an explicit HTTPS correction and rejects unsafe colors', async ({
   await page.getByRole('button', { name: 'Use HTTPS for this URL' }).click();
   await expect(page.getByLabel('Website URL')).toHaveValue('https://example.com');
   await expect(page.getByText('Scan check passed')).toBeVisible();
+  await page.getByText('Custom colors', { exact: true }).click();
   await page.getByLabel('Code color', { exact: true }).fill('#eeeeee');
   await expect(page.getByRole('button', { name: 'Download PNG' })).toBeDisabled();
   await expect(page.getByRole('alert')).toContainText('4.5:1');
   await page.getByRole('button', { name: 'Reset design' }).click();
   await expect(page.getByText('Scan check passed')).toBeVisible();
+});
+
+test('keeps optional controls discoverable and offers downloads before styling on mobile', async ({ page, isMobile }) => {
+  await page.goto('/');
+  await expect(page.getByLabel('Code color', { exact: true })).toBeHidden();
+  await expect(page.getByLabel('Error correction')).toBeHidden();
+  await page.getByLabel('Website URL').fill('https://example.com/simple');
+  await expect(page.getByRole('button', { name: 'Download PNG' })).toBeEnabled();
+  if (isMobile) {
+    const download = await page.getByRole('button', { name: 'Download PNG' }).boundingBox();
+    const customize = await page.getByRole('heading', { name: 'Make it yours' }).boundingBox();
+    expect(download!.y).toBeLessThan(customize!.y);
+    await page.getByRole('link', { name: 'Customize colors & logo' }).click();
+    await expect(page.getByRole('heading', { name: 'Make it yours' })).toBeInViewport();
+  }
+  const disclosure = page.getByText('Custom colors', { exact: true });
+  await disclosure.focus();
+  await disclosure.press('Enter');
+  await expect(page.getByLabel('Code color', { exact: true })).toBeVisible();
+  await page.getByLabel('Code color', { exact: true }).fill('#18365a');
+  await expect(page.getByText('Scan check passed')).toBeVisible();
+  if (isMobile) {
+    await page.getByRole('link', { name: 'Back to your QR code' }).click();
+    await expect(page.getByRole('button', { name: 'Download PNG' })).toBeInViewport();
+  }
 });

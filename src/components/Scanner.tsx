@@ -12,6 +12,7 @@ export function Scanner({ onLoad }: { onLoad: (draft: ContentDraft) => void }) {
   const [error, setError] = useState('');
   const [copyMessage, setCopyMessage] = useState('');
   const [revealed, setRevealed] = useState(false);
+  const [isDragging, setIsDragging] = useState(false);
   const operation = useRef<AbortController | undefined>(undefined);
   const fileRef = useRef<HTMLInputElement>(null);
   useEffect(() => () => operation.current?.abort(), []);
@@ -45,8 +46,33 @@ export function Scanner({ onLoad }: { onLoad: (draft: ContentDraft) => void }) {
   return <section className="scanner-page" aria-labelledby="scan-title" onPaste={(event) => {
     const image = Array.from(event.clipboardData.files).find((file) => file.type.startsWith('image/'));
     if (image) { event.preventDefault(); void scan(image); }
-  }}><div className="page-intro"><div><p className="eyebrow">A CLOSER LOOK</p><h1 id="scan-title">See what’s inside the code<span>.</span></h1><p>Choose an image. Read the content. Decide what happens next.</p></div><span className="privacy-pill"><Icon name="lock" size={16} />Decoded on your device</span></div>
-    <div className="scanner-grid"><div className="scan-upload-card"><div className="scan-upload-icon"><Icon name="scan" size={40} /></div><h2>A code worth a closer look</h2><p>Upload a PNG, JPEG, or WebP, or paste an image here. Up to 10 MiB and 24 megapixels.</p><label className="primary-button upload-label"><Icon name="upload" size={18} />{busy ? 'Choose another image' : 'Choose QR image'}<input ref={fileRef} aria-label="Choose QR image" type="file" accept="image/png,image/jpeg,image/webp" onChange={(event) => void scan(event.target.files?.[0])} /></label><p className="field-hint">One code per image. Crop around the code first if needed.</p><div className="notice"><Icon name="shield" size={18} /><p>Your image stays on this device. Links never open automatically.</p></div></div>
+  }}>
+    <div className="page-intro">
+      <p className="eyebrow">A LITTLE CLARITY BEFORE YOU CONNECT</p>
+      <h1 id="scan-title">See what’s <span>inside.</span></h1>
+      <p>Read a QR image privately. You decide what happens next.</p>
+    </div>
+    <div className="scanner-grid">
+      <div className={`scan-upload-card ${isDragging ? 'is-dragging' : ''}`}
+        onDragOver={(event) => { event.preventDefault(); setIsDragging(true); }}
+        onDragLeave={(event) => {
+          if (!(event.relatedTarget instanceof Node) || !event.currentTarget.contains(event.relatedTarget)) setIsDragging(false);
+        }}
+        onDrop={(event) => {
+          event.preventDefault(); setIsDragging(false);
+          if (event.dataTransfer.files.length !== 1) {
+            operation.current?.abort(); setBusy(false); setResult(undefined);
+            setCopyMessage(''); setRevealed(false); setError('Choose one QR image at a time.'); return;
+          }
+          void scan(event.dataTransfer.files[0]);
+        }}>
+        <div className="scan-upload-icon"><Icon name="upload" size={30} /></div>
+        <h2>{isDragging ? 'Drop it here' : 'Drop in a QR image'}</h2>
+        <p>Drag an image here, paste it, or choose a file below. PNG, JPEG or WebP, up to 10 MiB.</p>
+        <label className="primary-button upload-label"><Icon name="plus" size={17} />{busy ? 'Choose another image' : 'Choose QR image'}<input ref={fileRef} aria-label="Choose QR image" type="file" accept="image/png,image/jpeg,image/webp" onChange={(event) => void scan(event.target.files?.[0])} /></label>
+        <p className="field-hint">One complete code per image · Up to 24 megapixels</p>
+        <div className="notice"><Icon name="shield" size={17} /><p>Processed on your device. Links open only when you choose.</p></div>
+      </div>
       <div className="scan-result-card"><div className="preview-heading"><h2>Decoded content</h2><Icon name="qr" size={19} /></div><div className="scan-result-body">
         <p className="scan-result-status" role="status">{busy ? 'Reading the image on your device…' : result ? `Decoded successfully · ${contentInfo[result.draft.type].label}` : 'Choose an image to see what it contains.'}</p>
         {error ? <p className="error-notice" role="alert">{error}</p> : null}

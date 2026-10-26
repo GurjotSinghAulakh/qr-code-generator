@@ -29,6 +29,8 @@ The deployed product needs only static files. There is no API, application serve
 
 ## State and sensitive content
 
+The interface follows content → preview/export → optional customization in DOM order. The desktop grid places personalization below content and the preview beside both sections; the mobile layout follows DOM order so a basic download does not require scrolling through design controls. Native disclosures expose custom colors, technical settings, payload inspection, and help answers. The scanner accepts a local picker, paste, or a single dropped file through the same guarded decode pipeline.
+
 Drafts and generated artifacts live in memory. There is no automatic persistence, content in app URLs, request logging, telemetry, or provider credential. Reset discards a draft but is not secure memory erasure. Browser back/forward cache and downloaded files remain under browser/user control.
 
 Wi-Fi fields and raw encoded details are masked until deliberate reveal; the code image itself still exposes the password. Structured import/scanning requires confirmation before overwriting an existing draft. Opening an HTTP/HTTPS destination is an explicit user action; unsafe schemes never receive a navigation action.

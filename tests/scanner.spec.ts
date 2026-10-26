@@ -64,3 +64,25 @@ test('rejects unsupported images and oversized dimensions before rasterization',
   await page.getByLabel('Choose QR image', { exact: true }).setInputFiles({ name: 'huge.png', mimeType: 'image/png', buffer: dimensions });
   await expect(page.getByRole('alert')).toContainText('24-megapixel');
 });
+
+test('accepts a dropped image and rejects an ambiguous multiple-file drop', async ({ page }) => {
+  await page.goto('/');
+  await page.getByRole('button', { name: 'Scan an image' }).click();
+  const image = await fixture('https://example.com/dropped');
+  const transfer = await page.evaluateHandle(({ base64 }) => {
+    const bytes = Uint8Array.from(atob(base64), (character) => character.charCodeAt(0));
+    const data = new DataTransfer();
+    data.items.add(new File([bytes], 'dropped.png', { type: 'image/png' }));
+    return data;
+  }, { base64: image.buffer.toString('base64') });
+  const zone = page.locator('.scan-upload-card');
+  await zone.dispatchEvent('dragover', { dataTransfer: transfer });
+  await expect(page.getByRole('heading', { name: 'Drop it here' })).toBeVisible();
+  await zone.dispatchEvent('drop', { dataTransfer: transfer });
+  await expect(page.getByLabel('Decoded QR content')).toHaveValue('https://example.com/dropped');
+  await transfer.evaluate((data) => { data.items.add(new File(['invalid'], 'second.png', { type: 'image/png' })); });
+  await zone.dispatchEvent('drop', { dataTransfer: transfer });
+  await expect(page.getByRole('alert')).toContainText('one QR image at a time');
+  await expect(page.getByLabel('Decoded QR content')).toHaveCount(0);
+  await transfer.dispose();
+});

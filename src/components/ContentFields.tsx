@@ -33,7 +33,7 @@ export function ContentFields({ draft, errors, onChange }: Props) {
       })}
     </div>
     {missingScheme ? <button className="text-button" type="button" onClick={() => onChange('url', `https://${draft.fields.url}`)}>Use HTTPS for this URL <Icon name="arrow" size={16} /></button> : null}
-    {draft.type === 'url' ? <p className="field-hint">Link to a website, social profile, menu, or a document you already host. We don’t upload or host files.</p> : null}
+    {draft.type === 'url' ? <p className="field-hint">A website, social profile, menu, or document you already host.</p> : null}
     {draft.type === 'wifi' ? <div className="wifi-options">
       <div className="field"><label htmlFor="wifi-security">Network security</label><select id="wifi-security" value={draft.fields.security} onChange={(event) => onChange('security', event.target.value)}><option value="WPA">WPA / WPA2 Personal</option><option value="WEP">WEP (legacy)</option><option value="nopass">Open network (no password)</option></select></div>
       <label className="checkbox-label"><input type="checkbox" checked={draft.fields.hidden === 'true'} onChange={(event) => onChange('hidden', String(event.target.checked))} />Hidden network</label>

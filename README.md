@@ -23,8 +23,8 @@ Open the Local URL printed by Vite. No environment variables, service credential
 - Local PNG/JPEG/WebP logo normalization, H correction, and protected-pattern-aware placement.
 - PNG and self-contained SVG exports, from 256 to 4096 pixels subject to density limits.
 - Independent decoding of both rendered artifacts, with exact payload-byte comparison before enabling downloads.
-- Local QR-image scanning, safe text display, explicit URL navigation, and confirmed draft replacement.
-- Responsive layout, keyboard controls, status announcements, and help/privacy explanations.
+- Local QR-image scanning by upload, paste, or drag-and-drop, with safe text display, explicit URL navigation, and confirmed draft replacement.
+- A refined responsive workspace with visible quick themes, expandable advanced controls, keyboard access, and clear help/privacy FAQs. On mobile, preview/download comes before optional styling.
 - In-memory content only; production generation continues offline while the loaded page remains open.
 
 Static codes have no generator-imposed expiry. A linked destination can still change or disappear. Editing a project produces a new image; it cannot change a printed code. QR codes are readable data, not encryption, including Wi-Fi credentials.
