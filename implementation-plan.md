@@ -32,7 +32,7 @@ Dependency versions will be resolved from the registry and pinned in the lockfil
 | T03 | Complete | Implement and test P0 content contracts | T02 |
 | T04 | Complete | Implement safe QR rendering and independent verification | T03 |
 | T05 | Complete | Build the responsive generator workspace and verified downloads | T04 |
-| T06 | Planned | Add safe local QR-image scanning and editor handoff | T05 |
+| T06 | Complete | Add safe local QR-image scanning and editor handoff | T05 |
 | T07 | Planned | Add browser regression checks, privacy/security hardening, and developer documentation | T06 |
 | T08 | Planned | Complete P1 content types and campaign URL controls | T07 |
 | T09 | Planned | Add cancellable CSV bulk jobs and verified ZIP exports | T08 |
@@ -139,4 +139,5 @@ Statuses: Planned → In progress → Complete. Use “Implemented; manual valid
 - **T03:** Implemented URL/text/Wi-Fi/vCard serializers, field definitions, per-type defaults, UTF-8 limits, credential validation, escaping, and byte-safe content-line folding. All 18 serializer checks pass; type check and production build pass. International phone validation is syntactic and does not contact a number-lookup service.
 - **T04:** Added a shared matrix/SVG layout, integer module sizing, contrast/quiet-zone checks, reserved-pattern logo placement, bounded image normalization, independent worker decoding, and PNG/SVG artifact creation. All 48 unit checks pass, including 16 cross-library round trips; type check/build pass. Actual browser artifact round trips will be exercised with the T05 workspace and T07 browser suite. Physical logo/print compatibility remains a release gate.
 - **T05:** Built the responsive editor, preserved drafts, masked credential inspection, design/logo controls, revision-bound verification, PNG/SVG downloads, and help/privacy content. Production build/type checks and six desktop/mobile Playwright cases pass; downloaded PNG bytes were independently decoded, and SVG safety was inspected. Reviewed desktop/mobile screenshots and preserved download-button focus. Interactive preview connection was unavailable, so screenshots came from the automated test browser.
+- **T06:** Added local image scanning/paste, a multiple-code check, inert decoded text, Wi-Fi disclosure controls, deliberate safe navigation, and loss-aware editor handoff. Unsupported contact/Wi-Fi profiles stay intact as plain text rather than silently dropping fields. All 53 unit tests and 14 desktop/mobile browser cases pass; type check/build pass. Camera scanning remains T13.
 - Subsequent tasks append actual implementation/check results here.
