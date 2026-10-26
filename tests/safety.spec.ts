@@ -119,9 +119,10 @@ test('has no automated AA accessibility violations in the shipped views', async 
   }
 });
 
-test('supports the keyboard entry path and 320px reflow', async ({ page }) => {
+test('supports the keyboard entry path and 320px reflow', async ({ page, browserName }) => {
   await page.goto('/');
-  await page.keyboard.press('Tab');
+  // WebKit on macOS uses Option-Tab to include links with default keyboard settings.
+  await page.keyboard.press(browserName === 'webkit' ? 'Alt+Tab' : 'Tab');
   await expect(page.getByRole('link', { name: 'Skip to main content' })).toBeFocused();
   await page.keyboard.press('Enter');
   await expect(page.locator('#main')).toBeFocused();

@@ -38,6 +38,8 @@ test('uses a styled export dropdown and downloads the selected image size', asyn
   expect(png.height).toBe(512);
   expect(() => assertDecodedPayload(decodePixels(new Uint8ClampedArray(png.data), png.width, png.height), payload)).not.toThrow();
   await trigger.click();
+  await expect(page.getByRole('option', { name: '512 × 512 px', exact: true })).toBeFocused();
+  await page.mouse.move(5, 5);
   await page.mouse.click(5, 5);
   await expect(menu).toHaveCount(0);
   await expect(trigger).toContainText('512 × 512 px');

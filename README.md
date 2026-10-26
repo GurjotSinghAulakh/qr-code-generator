@@ -43,7 +43,14 @@ npm run test:e2e
 
 Browser checks cover downloaded artifacts, Unicode, contact/Wi-Fi fields, logo output, stale revisions, invalid input, local scanning, malicious decoded content, upload limits, draft replacement, network privacy, loaded-page offline use, keyboard focus, 320-pixel reflow, and automated accessibility checks.
 
-Physical phone scans, VoiceOver/NVDA journeys, Safari/Firefox/Edge compatibility, and reference-device performance measurements still require manual release validation. See the [release checklist](docs/release-checklist.md).
+An optional broader suite uses installed Google Chrome and Playwright Firefox/WebKit runtimes:
+
+```sh
+npx playwright install firefox webkit
+npm run test:beta
+```
+
+See [browser evidence](docs/beta-validation/browser-results.md) for tested versions and limitations. Physical phone scans, VoiceOver/NVDA journeys, retail-browser compatibility, and reference-device performance measurements still require manual release validation. See the [release checklist](docs/release-checklist.md).
 
 ## Build and hosting
 

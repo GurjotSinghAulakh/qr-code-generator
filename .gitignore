@@ -155,3 +155,6 @@ playwright-report/
 
 # Generated at build time from installed production dependency licenses
 /public/third-party-notices.txt
+
+# Local beta-validation measurements and generated test packs
+/beta-results/

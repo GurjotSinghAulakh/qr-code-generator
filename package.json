@@ -14,7 +14,8 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "test:e2e": "npm run build && playwright test",
-    "check": "npm run typecheck && npm test && npm run build"
+    "check": "npm run typecheck && npm test && npm run build",
+    "test:beta": "npm run build && playwright test --config playwright.beta.config.ts"
   },
   "dependencies": {
     "@radix-ui/react-select": "2.4.1",

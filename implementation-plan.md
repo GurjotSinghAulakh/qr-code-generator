@@ -37,6 +37,7 @@ Dependency versions are pinned in the lockfile. Runtime dependencies must have s
 | R01 | Complete | Redesign the existing app with a simpler premium interface and mobile creation flow | T07 |
 | R02 | Complete | Replace all form dropdowns with a shared styled Select component | R01 |
 | B00 | Complete | Apply the owner-approved MIT license and validate complete distribution notices | R02 |
+| B01 | Complete | Add versioned automated Chrome/Firefox/WebKit beta compatibility evidence | B00 |
 | T08 | Planned | Complete P1 content types and campaign URL controls | T07 |
 | T09 | Planned | Add cancellable CSV bulk jobs and verified ZIP exports | T08 |
 | T10 | Planned | Add PDF export, physical sizing, and print layouts | T07 |
@@ -147,6 +148,8 @@ Statuses: Planned → In progress → Complete. Use “Implemented; manual valid
 - **R01 — requested interface redesign:** Replaced the separate cards and small-text treatment with a unified workspace, warm neutral canvas, refined typography, consistent Lucide icons, clear navigation, and one prominent download action. Quick color themes stay visible; custom colors, technical settings, and encoded details use native disclosures. Mobile follows content → preview/download → optional styling, with accessible jump links. Added local drag-and-drop scanning and invalid multi-file handling; reorganized help into readable FAQ disclosures. Preserved the QR engine and privacy policy. Compared before/after desktop/mobile captures and reviewed scanner/help screenshots. **53 unit tests and 30 desktop/mobile browser cases pass**, including keyboard access, 320px reflow, expanded help accessibility, mobile task ordering, file drops, and all existing artifact/privacy checks. Strict TypeScript, production build, and whitespace checks pass; initial JavaScript is approximately **143 KiB gzip**. The existing local preview on port 5173 responds successfully; no server owned by the user was stopped. Manual release gates remain unchanged.
 
 ### Current implementation boundary
+
+**B01 — browser compatibility evidence:** Added an opt-in production-build suite with installed Chrome, Playwright Firefox/WebKit, and iPhone WebKit emulation; recorded runtime/host metadata and retained machine-readable local evidence. All 76 cases pass without retries or skips, together with 53 unit tests, TypeScript, and build. Adapted macOS WebKit link navigation and synchronized the dropdown outside-click test with focus/pointer movement; five targeted Chrome repetitions passed. See the browser evidence for exact versions and boundaries. Retail Safari/Firefox/Edge, physical phones, and screen readers remain manual gates.
 
 **B00 — approved application license:** The owner chose “Apply MIT” after reviewing the full proposal. Added the root LICENSE, package/lockfile metadata, README/PRD decision, and full application text in generated distribution notices. The existing dependency licenses/supplement are preserved. Build/type checking and notice generation pass; a current registry audit reports zero known vulnerabilities. This does not complete maintenance, browser, assistive-technology, physical-device, or deployment gates.
 
