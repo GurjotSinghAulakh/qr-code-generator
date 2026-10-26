@@ -44,7 +44,7 @@ test('independently verifies a branded export with an embedded local logo', asyn
   await expect(page.getByText('Scan check passed')).toBeVisible();
   await page.getByText('Advanced settings', { exact: true }).click();
   await expect(page.getByLabel('Error correction')).toBeDisabled();
-  await expect(page.getByLabel('Error correction')).toHaveValue('H');
+  await expect(page.getByRole('combobox', { name: 'Error correction' })).toContainText('H · Highest');
   const download = page.waitForEvent('download');
   await page.getByRole('button', { name: 'Download PNG' }).click();
   const file = await download;

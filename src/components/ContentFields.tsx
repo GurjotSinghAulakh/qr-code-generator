@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { contentInfo, isDraftEmpty, type ContentDraft } from '../lib/content';
 import { Icon } from './Icon';
+import { Select } from './Select';
 
 interface Props { draft: ContentDraft; errors: Record<string, string>; onChange: (key: string, value: string) => void }
 export function ContentFields({ draft, errors, onChange }: Props) {
@@ -35,9 +36,13 @@ export function ContentFields({ draft, errors, onChange }: Props) {
     {missingScheme ? <button className="text-button" type="button" onClick={() => onChange('url', `https://${draft.fields.url}`)}>Use HTTPS for this URL <Icon name="arrow" size={16} /></button> : null}
     {draft.type === 'url' ? <p className="field-hint">A website, social profile, menu, or document you already host.</p> : null}
     {draft.type === 'wifi' ? <div className="wifi-options">
-      <div className="field"><label htmlFor="wifi-security">Network security</label><select id="wifi-security" value={draft.fields.security} onChange={(event) => onChange('security', event.target.value)}><option value="WPA">WPA / WPA2 Personal</option><option value="WEP">WEP (legacy)</option><option value="nopass">Open network (no password)</option></select></div>
+      <Select id="wifi-security" label="Network security" value={draft.fields.security} error={visibleErrors.security} onValueChange={(value) => onChange('security', value)} options={[
+        { value: 'WPA', label: 'WPA / WPA2 Personal' },
+        { value: 'WEP', label: 'WEP (legacy)' },
+        { value: 'nopass', label: 'Open network (no password)' },
+      ]} />
       <label className="checkbox-label"><input type="checkbox" checked={draft.fields.hidden === 'true'} onChange={(event) => onChange('hidden', String(event.target.checked))} />Hidden network</label>
-      {visibleErrors.security || visibleErrors.hidden ? <p className="field-error">{visibleErrors.security ?? visibleErrors.hidden}</p> : null}
+      {visibleErrors.hidden ? <p className="field-error">{visibleErrors.hidden}</p> : null}
     </div> : null}
     {visibleErrors._form ? <p className="field-error" role="alert">{visibleErrors._form}</p> : null}
   </div>;

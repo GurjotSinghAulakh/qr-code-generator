@@ -26,6 +26,7 @@ The deployed product needs only static files. There is no API, application serve
 - `artifacts.ts`: rasterizes the actual SVG, encodes PNG, independently checks both artifacts, and owns download URL lifetime/focus restoration.
 - `useGeneration.ts`: debounces work and binds results to the exact draft/design object identities. Old async results cannot enable downloads for new input. Aborts terminate in-flight decoder workers.
 - Components: own UI state and labeled controls; render payloads only through React text/textarea bindings. No injected HTML is used.
+- `components/Select.tsx`: shared controlled Radix Select for export size, Wi-Fi security, and error correction. Centralizes labels, error descriptions, disabled options, selection indicators, and styling. Its popup renders in a portal to avoid clipped panels. Background controls become inert while the popup is open and are restored before focus returns to the trigger. Use this component for additional finite-option dropdown fields.
 
 ## State and sensitive content
 

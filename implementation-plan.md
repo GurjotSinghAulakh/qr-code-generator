@@ -35,6 +35,7 @@ Dependency versions will be resolved from the registry and pinned in the lockfil
 | T06 | Complete | Add safe local QR-image scanning and editor handoff | T05 |
 | T07 | Complete | Add browser regression checks, privacy/security hardening, and developer documentation | T06 |
 | R01 | Complete | Redesign the existing app with a simpler premium interface and mobile creation flow | T07 |
+| R02 | Complete | Replace all form dropdowns with a shared styled Select component | R01 |
 | T08 | Planned | Complete P1 content types and campaign URL controls | T07 |
 | T09 | Planned | Add cancellable CSV bulk jobs and verified ZIP exports | T08 |
 | T10 | Planned | Add PDF export, physical sizing, and print layouts | T07 |
@@ -146,6 +147,8 @@ Statuses: Planned → In progress → Complete. Use “Implemented; manual valid
 
 ### Current implementation boundary
 
-T01–T07 form the first working development increment and are committed separately; R01 applies the subsequently requested interface redesign as its own task commit. Start the app with `npm run dev`; run the full automated checks with `npm run check` and `npm run test:e2e`. Test-generated screenshots/downloads/traces and generated dependency notices remain ignored; the notices are recreated in every production build.
+**R02 — reusable dropdowns:** Added a typed, controlled `Select` component using Radix primitives and migrated export size, Wi-Fi security, and error correction. Menus match the interface, render outside clipped panels, stay within the viewport, support typeahead and keyboard selection, and restore focus after selection/Escape. Background inertness and cleanup are verified while menus are open/closed. Added a reviewed MIT license supplement for the pinned transitive package that omits a full license in its npm archive. **53 unit checks and 36 desktop/mobile browser cases pass**, including popup accessibility, actual 512px PNG decoding, controlled reset, and logo-forced disabled correction. Type checking/build and whitespace checks pass; reviewed desktop/mobile open-menu screenshots. Initial JavaScript is approximately **173 KiB gzip**, within the proposed 300 KiB budget. Vite reports its default advisory for the uncompressed main chunk exceeding 500 kB; no threshold was raised or warning suppressed.
+
+T01–T07 form the first working development increment and are committed separately; R01 and R02 apply the subsequent interface requests as their own task commits. Start the app with `npm run dev`; run the full automated checks with `npm run check` and `npm run test:e2e`. Test-generated screenshots/downloads/traces and generated dependency notices remain ignored; the notices are recreated in every production build.
 
 The next implementation task is **T08**. T08–T15 remain planned; this increment does not implement bulk/PDF/projects/camera/offline reload or satisfy the PRD's external/manual public-launch gates. No code has been pushed or deployed.

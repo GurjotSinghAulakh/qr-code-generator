@@ -12,6 +12,8 @@ The app handles content on the device and does not require secrets or remote API
 - No content persistence, session replay, analytics, remote fonts, camera, or automatic destination fetches exist in this increment.
 - Lockfile versions are pinned. The build includes full installed production dependency license notices.
 
+Reviewed, version-specific license supplements are stored in `third-party/` for packages whose published archive omits the full license text. The notices generator includes these supplements and continues to reject other missing licenses.
+
 ## Production response headers
 
 `public/_headers` is a static-host rules file, copied to `dist/_headers`. It is not automatically honored by every host. Configure the equivalent policy in the selected host and verify its actual responses before launch. Vite preview uses equivalent response headers for browser checks.

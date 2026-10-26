@@ -3,6 +3,7 @@ import { normalizeLogo } from '../lib/images';
 import { userMessage } from '../lib/errors';
 import { DEFAULT_DESIGN, type Correction, type Design } from '../lib/qr';
 import { Icon } from './Icon';
+import { Select } from './Select';
 
 const palettes = [
   { label: 'Classic black', foreground: '#000000', background: '#ffffff' },
@@ -43,7 +44,12 @@ export function DesignControls({ design, onChange }: { design: Design; onChange:
     </div>
     {uploadState ? <p className="field-hint" role="status">{uploadState}</p> : null}
     <details className="advanced-settings disclosure"><summary><span><Icon name="sliders" size={16} />Advanced settings</span><Icon name="chevron" size={16} /></summary><div className="color-grid">
-      <div className="field"><label htmlFor="correction">Error correction</label><select id="correction" value={design.logo ? 'H' : design.correction} disabled={!!design.logo} onChange={(event) => onChange({ ...design, correction: event.target.value as Correction })}><option value="L">L · Low</option><option value="M">M · Standard</option><option value="Q">Q · High</option><option value="H">H · Highest</option></select></div>
+      <Select<Correction> id="correction" label="Error correction" value={design.logo ? 'H' : design.correction} disabled={!!design.logo} onValueChange={(correction) => onChange({ ...design, correction })} options={[
+        { value: 'L', label: 'L · Low' },
+        { value: 'M', label: 'M · Standard' },
+        { value: 'Q', label: 'Q · High' },
+        { value: 'H', label: 'H · Highest' },
+      ]} />
       <div className="field"><label htmlFor="quiet-zone">Quiet zone (modules)</label><input id="quiet-zone" type="number" min="4" max="32" step="1" value={design.quietZone} onChange={(event) => onChange({ ...design, quietZone: event.target.value === '' ? 0 : Number(event.target.value) })} /></div>
     </div><p className="field-hint">Higher correction uses more space. Logos use H. A clear margin of at least four modules is always required.</p></details>
     <a className="text-button mobile-customize-action" href="#preview-title"><Icon name="qr" size={15} />Back to your QR code</a>

@@ -4,6 +4,7 @@ import { downloadBlob } from '../lib/artifacts';
 import { sanitizeFilename, type Design } from '../lib/qr';
 import { useObjectURL, type Generation } from '../hooks/useGeneration';
 import { Icon } from './Icon';
+import { Select } from './Select';
 
 interface Props { draft: ContentDraft; design: Design; generation: Generation; onDesignChange: (design: Design) => void }
 export function Preview({ draft, design, generation, onDesignChange }: Props) {
@@ -33,7 +34,9 @@ export function Preview({ draft, design, generation, onDesignChange }: Props) {
     <p className={`scan-status ${ready ? 'success-text' : ''}`} role="status" aria-live="polite">{ready ? <Icon name="shield" size={15} /> : <Icon name="info" size={15} />}{statusLabel}</p>
     <div className="preview-details">
       {error ? <div className="error-notice" role="alert">{error}</div> : null}
-      <div className="field export-size"><label htmlFor="export-size">Export size</label><select id="export-size" value={design.size} onChange={(event) => onDesignChange({ ...design, size: Number(event.target.value) })}>{[256, 512, 1024, 2048, 4096].map((size) => <option value={size} key={size}>{size} × {size} px{size === 1024 ? ' · Recommended' : ''}</option>)}</select></div>
+      <Select id="export-size" label="Export size" className="export-size" value={String(design.size)} onValueChange={(size) => onDesignChange({ ...design, size: Number(size) })} options={[256, 512, 1024, 2048, 4096].map((size) => ({
+        value: String(size), label: `${size} × ${size} px`, description: size === 1024 ? 'Recommended' : undefined,
+      }))} />
       <div className="download-buttons"><button type="button" className="primary-button" disabled={!ready} onClick={() => download('png')}><Icon name="download" size={18} />Download PNG</button><button type="button" className="secondary-button" disabled={!ready} onClick={() => download('svg')}>SVG<Icon name="download" size={17} /></button></div>
       <p className="download-hint">High quality. No watermark. Always free.</p>
       <p className="sr-only" role="status">{downloadMessage}</p>
