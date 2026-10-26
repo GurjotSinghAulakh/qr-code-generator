@@ -3,7 +3,7 @@ import path from 'node:path';
 
 // Include the full installed production dependency license set, even for CLI-only code not bundled by Vite.
 const lock = JSON.parse(fs.readFileSync('package-lock.json', 'utf8'));
-const sections = ['QR Studio — third-party notices\n\nDependency licenses do not grant a license to the application source.\n'];
+const sections = ['QR Studio — application license and third-party notices\n\nApplication — MIT License\n\n' + fs.readFileSync('LICENSE', 'utf8') + '\nDependencies retain the licenses listed below.\n'];
 const supplements = {
   'react-remove-scroll-bar@2.3.8': 'third-party/react-remove-scroll-bar.LICENSE',
 };

@@ -21,7 +21,9 @@ This file distinguishes implemented development functionality from the external 
 - [ ] Test print materials/sizes, protected-center logo rejection, and dense codes at recommended size.
 - [ ] Measure preview/export performance and memory recovery on named reference devices under the specified conditions.
 - [ ] Run voluntary usability sessions; record task success and free-use/lifetime comprehension.
-- [ ] Review dependency maintenance/security, choose the application source license, and confirm notices.
+- [ ] Finish dependency maintenance/security review. The current npm advisory audit reports zero known vulnerabilities; maintenance and upgrade risks still need recorded review.
+- [x] Apply the owner-approved MIT application license. See [license decision](beta-validation/license-decision.md).
+- [x] Confirm generated build notices include the full application license and all production dependency licenses, including the reviewed supplement.
 - [ ] Select an HTTPS static host; verify actual headers, logging/redaction/retention, cost budget, monitoring, ownership, and rollback.
 
 ## Advanced v1 gates

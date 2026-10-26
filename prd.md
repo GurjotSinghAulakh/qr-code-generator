@@ -540,7 +540,7 @@ The following defaults let implementation proceed without blocking on branding o
 | Brand/domain | Use the descriptive product name until a brand is selected. | Maintainer before public launch |
 | Product model | Free, no required account, browser processing, direct static payloads. | Maintainer at M0; foundational product constraint |
 | Technology stack | Choose a maintainable static frontend after the feasibility prototype; do not require a backend. | Engineering at M0 |
-| Code license | Choose an explicit repository license compatible with selected dependencies; free use alone does not settle source licensing. | Maintainer before public release |
+| Code license | MIT, explicitly approved by the owner on 26 October 2026; dependency notices retain their respective licenses. | Confirmed; see LICENSE |
 | vCard profile | Use tested vCard 3.0 for initial scanner compatibility; evaluate 4.0 separately. | Engineering during M0/M1 |
 | Operational limits | Begin with section 11; adjust based on reference-device results and document changes. | Engineering before M2 exit |
 | Analytics | None at launch; measure through voluntary research and test runs. | Maintainer before public launch |

@@ -21,7 +21,7 @@ P0 is the public-beta scope. P1 is required to call the advanced product v1. P2 
 - **Styling:** local CSS and system fonts; a calm, responsive workspace with clear content/design steps and a prominent output panel. No external assets or scripts.
 - **Security:** local file processing, inert user content, file signature/dimension limits, safe SVG serialization, and hosting security-header guidance.
 
-Dependency versions will be resolved from the registry and pinned in the lockfile. Runtime dependencies must have suitable licenses. The repository source license remains a maintainer decision; do not invent one.
+Dependency versions are pinned in the lockfile. Runtime dependencies must have suitable licenses. The owner explicitly approved MIT for the application on 26 October 2026; see LICENSE and the recorded license decision.
 
 ## Task ledger
 
@@ -36,6 +36,7 @@ Dependency versions will be resolved from the registry and pinned in the lockfil
 | T07 | Complete | Add browser regression checks, privacy/security hardening, and developer documentation | T06 |
 | R01 | Complete | Redesign the existing app with a simpler premium interface and mobile creation flow | T07 |
 | R02 | Complete | Replace all form dropdowns with a shared styled Select component | R01 |
+| B00 | Complete | Apply the owner-approved MIT license and validate complete distribution notices | R02 |
 | T08 | Planned | Complete P1 content types and campaign URL controls | T07 |
 | T09 | Planned | Add cancellable CSV bulk jobs and verified ZIP exports | T08 |
 | T10 | Planned | Add PDF export, physical sizing, and print layouts | T07 |
@@ -146,6 +147,8 @@ Statuses: Planned → In progress → Complete. Use “Implemented; manual valid
 - **R01 — requested interface redesign:** Replaced the separate cards and small-text treatment with a unified workspace, warm neutral canvas, refined typography, consistent Lucide icons, clear navigation, and one prominent download action. Quick color themes stay visible; custom colors, technical settings, and encoded details use native disclosures. Mobile follows content → preview/download → optional styling, with accessible jump links. Added local drag-and-drop scanning and invalid multi-file handling; reorganized help into readable FAQ disclosures. Preserved the QR engine and privacy policy. Compared before/after desktop/mobile captures and reviewed scanner/help screenshots. **53 unit tests and 30 desktop/mobile browser cases pass**, including keyboard access, 320px reflow, expanded help accessibility, mobile task ordering, file drops, and all existing artifact/privacy checks. Strict TypeScript, production build, and whitespace checks pass; initial JavaScript is approximately **143 KiB gzip**. The existing local preview on port 5173 responds successfully; no server owned by the user was stopped. Manual release gates remain unchanged.
 
 ### Current implementation boundary
+
+**B00 — approved application license:** The owner chose “Apply MIT” after reviewing the full proposal. Added the root LICENSE, package/lockfile metadata, README/PRD decision, and full application text in generated distribution notices. The existing dependency licenses/supplement are preserved. Build/type checking and notice generation pass; a current registry audit reports zero known vulnerabilities. This does not complete maintenance, browser, assistive-technology, physical-device, or deployment gates.
 
 **R02 — reusable dropdowns:** Added a typed, controlled `Select` component using Radix primitives and migrated export size, Wi-Fi security, and error correction. Menus match the interface, render outside clipped panels, stay within the viewport, support typeahead and keyboard selection, and restore focus after selection/Escape. Background inertness and cleanup are verified while menus are open/closed. Added a reviewed MIT license supplement for the pinned transitive package that omits a full license in its npm archive. **53 unit checks and 36 desktop/mobile browser cases pass**, including popup accessibility, actual 512px PNG decoding, controlled reset, and logo-forced disabled correction. Type checking/build and whitespace checks pass; reviewed desktop/mobile open-menu screenshots. Initial JavaScript is approximately **173 KiB gzip**, within the proposed 300 KiB budget. Vite reports its default advisory for the uncompressed main chunk exceeding 500 kB; no threshold was raised or warning suppressed.
 

@@ -76,4 +76,4 @@ Read the [architecture notes](docs/architecture.md) for data flow and safety bou
 
 Email/phone/SMS/location/event types and campaign parameters; CSV/ZIP bulk generation; PDF/print layouts; decorative presets/frames/templates; explicit local saved projects and JSON backups; camera/native sharing; complete offline caching and safe updates. These remain free features in the plan, not a paid tier.
 
-The repository application source license is still a maintainer decision. Third-party code retains its own licenses; complete installed production dependency notices are generated at `public/third-party-notices.txt` and included in builds.
+The application source is licensed under [MIT](LICENSE), approved by the owner on 26 October 2026. Third-party code retains its own licenses; complete installed production dependency notices are generated at `public/third-party-notices.txt` and included in builds.
