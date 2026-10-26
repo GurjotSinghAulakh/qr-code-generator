@@ -52,6 +52,8 @@ npm run test:beta
 
 See [browser evidence](docs/beta-validation/browser-results.md) for tested versions and limitations. Physical phone scans, VoiceOver/NVDA journeys, retail-browser compatibility, and reference-device performance measurements still require manual release validation. See the [release checklist](docs/release-checklist.md).
 
+Run `npm run beta:pack` to prepare the printable synthetic scan fixtures and blank trial sheets. Follow the [manual execution protocol](docs/beta-validation/manual-test-protocol.md); generated materials do not establish physical test results.
+
 ## Build and hosting
 
 ```sh

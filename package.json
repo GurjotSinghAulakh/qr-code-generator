@@ -15,7 +15,8 @@
     "test:watch": "vitest",
     "test:e2e": "npm run build && playwright test",
     "check": "npm run typecheck && npm test && npm run build",
-    "test:beta": "npm run build && playwright test --config playwright.beta.config.ts"
+    "test:beta": "npm run build && playwright test --config playwright.beta.config.ts",
+    "beta:pack": "node scripts/generate-beta-pack.mjs"
   },
   "dependencies": {
     "@radix-ui/react-select": "2.4.1",

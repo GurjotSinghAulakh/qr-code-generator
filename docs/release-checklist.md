@@ -13,6 +13,8 @@ This file distinguishes implemented development functionality from the external 
 
 ## Public-beta manual gates still pending
 
+Use the [manual execution protocol and reproducible physical test pack](beta-validation/manual-test-protocol.md) to collect evidence. Preparing test materials does not complete the gates below.
+
 - [ ] Record actual tested versions of Chrome, Edge, Firefox, Safari, iOS Safari, and Android Chrome. Partial: installed Chrome plus Firefox/WebKit test runtimes pass; see [browser evidence](beta-validation/browser-results.md) for versions, scope, and outstanding retail/device checks.
 - [ ] Test all workflows with VoiceOver/Safari and NVDA/Firefox or Chrome.
 - [ ] Assess every applicable WCAG 2.2 AA criterion, including zoom, reflow, focus, non-text contrast, errors, and touch interaction.
