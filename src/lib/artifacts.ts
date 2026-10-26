@@ -33,8 +33,10 @@ export async function createArtifacts(payload: string, design: Design, signal?: 
 export function downloadBlob(blob: Blob, filename: string): void {
   const url = URL.createObjectURL(blob);
   const link = document.createElement('a');
+  const previouslyFocused = document.activeElement instanceof HTMLElement ? document.activeElement : undefined;
   link.href = url; link.download = filename; link.rel = 'noopener';
   document.body.append(link); link.click(); link.remove();
+  previouslyFocused?.focus({ preventScroll: true });
   // Leave time for browsers that defer reading download URLs until after the click handler.
   setTimeout(() => URL.revokeObjectURL(url), 60_000);
 }
